@@ -9,28 +9,27 @@ public class Dice : MonoBehaviour {
 	Vector3 RayDirection;
 	public GameObject GameManager;
 
-	int DiceNumber;
+	public int DiceNumber;
 	float Timer = 3.0f;
 	bool CanDisplayResult = false;
-	
+	Rigidbody rb;
 
+	void Start()
+	{
 
-	void Start(){
-
-		
+		rb = GetComponent<Rigidbody>();
+		transform.rotation = Random.rotation;
 
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-		for(int i = 0; i < Faces.Length; i++)
-		{
 
+	// Update is called once per frame
+	void Update ()
+	{
+		for (int i = 0; i < Faces.Length; i++)
+		{
 			RayDirection = (transform.position - Faces[i].transform.position).normalized;
 			Debug.DrawRay(transform.position, RayDirection * 10, Color.green);
 			RayDirections[i] = RayDirection;
-			
 		}
 
 		for (int f = 0; f < RayDirections.Length; f++)
@@ -39,42 +38,9 @@ public class Dice : MonoBehaviour {
 			{
 				DiceNumber = (Faces.Length - f);
 			}
-		
-		}
 
-		
+			}
+
 	}
-
-
-
-
-	void FixedUpdate()
-	{
-		if (Timer >= 0)
-		{
-			Timer -= Time.deltaTime;
-			CanDisplayResult = false;
-		}
-		else { DisplayDiceRoll(); }
-	}
-
-
-
-
-
-	void DisplayDiceRoll()
-	{
-		var GameManagerScript = GameManager.GetComponent<GameManager>();
-
-		if (CanDisplayResult == false)
-		{
-			GameManagerScript.Invoke("DisplayResult", 1.0f);
-			GameManagerScript.DiceResult = GameManagerScript.DiceResult + DiceNumber;
-			CanDisplayResult = true;
-		}
-	}
-	
-
-
 
 }
