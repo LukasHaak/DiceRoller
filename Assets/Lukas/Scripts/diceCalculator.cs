@@ -32,4 +32,11 @@ public class diceCalculator : MonoBehaviour {
             totalRolled += myDice.GetComponent<diceBase>().selectedVector;
         }
     }
+
+    public void OnClick()
+    {
+        GetTotalRolled();
+        Debug.Log("Number of Dice: " + diceInPlay.Length);
+        Debug.Log("Total rolled: " + totalRolled);
+    }
 }
