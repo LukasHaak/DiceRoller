@@ -7,10 +7,20 @@ public class Dice : MonoBehaviour {
 	public GameObject[] Faces;
 	public Vector3[] RayDirections;
 	Vector3 RayDirection;
+	public GameObject GameManager;
 
 	int DiceNumber;
-	float Timer = 4.0f;
+	float Timer = 3.0f;
+	bool CanDisplayResult = false;
+	
 
+
+	void Start(){
+
+		
+
+	}
+	
 	// Update is called once per frame
 	void Update () {
 		
@@ -27,25 +37,44 @@ public class Dice : MonoBehaviour {
 		{
 			if (Vector3.Dot(RayDirections[f], Vector3.down) < -0.95f)
 			{
-				//Debug.Log("Face that is down = " + Faces[f]);
-				//Debug.Log("The Result is = " + (Faces.Length - f));
-
 				DiceNumber = (Faces.Length - f);
 			}
 		
 		}
 
+		
+	}
+
+
+
+
+	void FixedUpdate()
+	{
 		if (Timer >= 0)
 		{
 			Timer -= Time.deltaTime;
+			CanDisplayResult = false;
 		}
 		else { DisplayDiceRoll(); }
-
 	}
+
+
+
+
 
 	void DisplayDiceRoll()
 	{
-		Debug.Log("The Result is = " + DiceNumber);
+		var GameManagerScript = GameManager.GetComponent<GameManager>();
+
+		if (CanDisplayResult == false)
+		{
+			GameManagerScript.Invoke("DisplayResult", 1.0f);
+			GameManagerScript.DiceResult = GameManagerScript.DiceResult + DiceNumber;
+			CanDisplayResult = true;
+		}
 	}
+	
+
+
 
 }
