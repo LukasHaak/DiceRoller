@@ -8,17 +8,19 @@ public class Dice : MonoBehaviour {
 	public Vector3[] RayDirections;
 	Vector3 RayDirection;
 	public GameObject GameManager;
-
 	public int DiceNumber;
+
 	float Timer = 3.0f;
 	bool CanDisplayResult = false;
 	Rigidbody rb;
 
+	//Initialize
 	void Start()
 	{
 
 		rb = GetComponent<Rigidbody>();
 		transform.rotation = Random.rotation;
+		rb.AddForce(Vector3.forward * 500, ForceMode.Impulse);
 
 	}
 
@@ -39,7 +41,7 @@ public class Dice : MonoBehaviour {
 				DiceNumber = (Faces.Length - f);
 			}
 
-			}
+		}
 
 	}
 

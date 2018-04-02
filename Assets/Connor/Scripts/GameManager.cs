@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 	public int DiceAmount;
 	public GameObject DicePrefab;
 	public Text ResultText;
+	public Text DiceAmountText;
 
 	GameObject[] Dices;
 	float Timer = 5.0f;
@@ -19,8 +20,10 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+		DiceAmount = 1;
 
 		ResultText.text = DiceResult.ToString();
+		DiceAmountText.text = DiceAmount.ToString();
 
 		InvokeRepeating("DisplayResult", 5, 1);
 
@@ -53,6 +56,7 @@ public class GameManager : MonoBehaviour {
 		for (int a = 0; a < Dices.Length; a++)
 		{
 			Destroy(Dices[a]);
+
 		}
 
 		for (int i = 0; i < DiceAmount; i++)
@@ -64,6 +68,18 @@ public class GameManager : MonoBehaviour {
 		
 	}
 
+
+	public void AddDiceAmount()
+	{
+		DiceAmount++;
+		DiceAmountText.text = DiceAmount.ToString();
+	}
+
+	public void SubtractDiceAmount()
+	{
+		DiceAmount--;
+		DiceAmountText.text = DiceAmount.ToString();
+	}
 
 
 }
